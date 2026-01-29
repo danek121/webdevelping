@@ -32,96 +32,95 @@
         nav a { color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; transition: color 0.3s; cursor: pointer;}
         nav a:hover { color: var(--accent-red); }
 
-        /* --- Hero --- */
+        /* --- HERO BANNER (Z DUŻYM ZDJĘCIEM W TLE) --- */
         .hero {
-            background-color: var(--secondary-bg); padding: 80px 20px; text-align: center; border-bottom: 1px solid #444;
+            /* Zdjęcie tła z przyciemnieniem */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                              url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1920&auto=format&fit=crop');
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efekt Parallax */
+            
+            height: 75vh;
+            min-height: 500px;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            padding: 20px;
+            border-bottom: 5px solid var(--accent-red);
         }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; }
 
-        /* --- Podtytuł --- */
+        .hero h1 { 
+            font-size: 3.5rem;
+            margin-bottom: 15px; 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
         .hero p.subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 50px;
-            color: #ddd;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #f0f0f0;
             font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            max-width: 800px;
         }
 
-        .btn { background-color: var(--accent-red); color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.3s; display: inline-block; border: none; cursor: pointer; font-size: 1rem;}
-        .btn:hover { background-color: #a00000; }
+        .btn { 
+            background-color: var(--accent-red); 
+            color: white; 
+            padding: 15px 40px;
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.2s; 
+            display: inline-block; 
+            border: none; 
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn:hover { 
+            background-color: #a00000; 
+            transform: scale(1.05);
+        }
 
         /* --- Sekcje ogólne --- */
         .section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; border-bottom: 2px solid var(--accent-red); display: inline-block; padding-bottom: 10px; width: 100%; max-width: 400px;}
 
         /* --- SEKCJA O NAS --- */
-        .about-intro {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 60px auto;
-            font-size: 1.1rem;
-            color: #ccc;
-        }
-
-        .about-row {
-            display: flex;
-            gap: 0; 
-            margin-bottom: 60px;
-            height: 350px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            border-radius: 15px; 
-            overflow: hidden; 
-        }
-
-        .about-row.reverse {
-            flex-direction: row-reverse;
-        }
-
-        .about-image {
-            flex: 1;
-            height: 100%; 
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .about-text {
-            flex: 1;
-            background-color: #ffffff; 
-            color: #333; 
-            padding: 40px;
-            height: 100%; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-        }
-
-        .about-text h3 {
-            color: var(--accent-red);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+        .about-intro { text-align: center; max-width: 900px; margin: 0 auto 60px auto; font-size: 1.1rem; color: #ccc; }
+        
+        .about-row { 
+            display: flex; gap: 0; margin-bottom: 60px; height: 350px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); border-radius: 15px; overflow: hidden; 
         }
         
-        .about-text p {
-             color: #555; 
+        .about-row.reverse { flex-direction: row-reverse; }
+        
+        .about-image { flex: 1; height: 100%; }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .about-text { 
+            flex: 1; background-color: #ffffff; color: #333; padding: 40px; height: 100%; 
+            display: flex; flex-direction: column; justify-content: center; 
         }
+        .about-text h3 { color: var(--accent-red); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase; }
+        .about-text p { color: #555; }
 
         /* --- GALERIA REALIZACJI --- */
-        .gallery-container {
-            display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px;
-            scrollbar-width: thin; scrollbar-color: var(--accent-red) var(--secondary-bg);
-        }
+        .gallery-container { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: var(--accent-red) var(--secondary-bg); }
         .gallery-container::-webkit-scrollbar { height: 10px; }
         .gallery-container::-webkit-scrollbar-track { background: var(--secondary-bg); }
         .gallery-container::-webkit-scrollbar-thumb { background-color: var(--accent-red); border-radius: 5px; }
-
-        .project-card {
-            min-width: 320px; background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden;
-            cursor: pointer; transition: transform 0.3s; border: 1px solid #444;
-        }
+        
+        .project-card { min-width: 320px; background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; border: 1px solid #444; }
         .project-card:hover { transform: translateY(-5px); border-color: var(--accent-red); }
         .project-img-thumb { width: 100%; height: 220px; object-fit: cover; background-color: #333; display: block; }
         .project-info { padding: 15px; }
@@ -151,47 +150,16 @@
         .close-btn:hover { color: var(--accent-red); }
         
         .modal-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px; }
-        /* Dodano kursor pointer, aby sugerował klikalność */
         .modal-gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: zoom-in; transition: opacity 0.2s; border: 1px solid #444;}
         .modal-gallery-grid img:hover { opacity: 0.8; border-color: var(--accent-red); }
         
         #modal-title { color: var(--accent-red); margin-top: 0; }
 
-        /* --- NOWY MODAL: LIGHTBOX (PEŁNY EKRAN) --- */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 3000; /* Musi być wyżej niż zwykły modal (2000) */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95); /* Prawie czarne tło */
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s;
-        }
-
-        .lightbox-img {
-            max-width: 90%;
-            max-height: 90%;
-            border: 2px solid #fff;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
+        /* --- LIGHTBOX (PEŁNY EKRAN) --- */
+        .lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; animation: fadeIn 0.3s; }
+        .lightbox-img { max-width: 90%; max-height: 90%; border: 2px solid #fff; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
         .lightbox-close:hover { color: var(--accent-red); }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- Responsywność --- */
@@ -200,15 +168,13 @@
             .contact-map { min-height: 350px; }
             header { flex-direction: column; gap: 15px; }
 
-            .about-row {
-                flex-direction: column !important; 
-                height: auto; 
-            }
-            .about-row.reverse {
-                 flex-direction: column !important;
-            }
+            .about-row, .about-row.reverse { flex-direction: column !important; height: auto; }
             .about-image { height: 250px; width: 100%; }
             .about-text { height: auto; padding: 30px; }
+            
+            /* Poprawki Hero na telefon */
+            .hero { height: auto; padding: 100px 20px; }
+            .hero h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -244,7 +210,7 @@
 
     <div class="about-row">
         <div class="about-image">
-            <img src="https://liz-bud.pl/wp-content/uploads/2019/11/repair3-home-project.jpg" alt="Doświadczenie na budowie">
+            <img src="https://liz-bud.pl/wp-content/uploads/2019/11/repair3-home-project.jpg" alt="Budowa osiedli">
         </div>
         <div class="about-text">
             <h3>Budowa osiedli mieszkaniowych</h3>
@@ -254,21 +220,21 @@
 
     <div class="about-row reverse">
         <div class="about-image">
-            <img src="https://liz-bud.pl/wp-content/uploads/2022/03/pexels-life-of-pix-2489-Copy.jpg" alt="Profesjonalny sprzęt">
+            <img src="https://liz-bud.pl/wp-content/uploads/2022/03/pexels-life-of-pix-2489-Copy.jpg" alt="Roboty ziemne">
         </div>
         <div class="about-text">
             <h3>Roboty ziemne</h3>
-            <p>Posiadając rozbudowane zaplecze sprzętowe oferujemy wykonanie robót ziemnych związanych z kopaniem ław, przekopów, wywozu ziemi, podłączeń kanalizacyjnych .</p>
+            <p>Posiadając rozbudowane zaplecze sprzętowe oferujemy wykonanie robót ziemnych związanych z kopaniem ław, przekopów, wywozu ziemi, podłączeń kanalizacyjnych.</p>
         </div>
     </div>
 
     <div class="about-row">
         <div class="about-image">
-            <img src="https://liz-bud.pl/wp-content/uploads/2022/03/pexels-yury-kim-585418-Copy.jpg" alt="Indywidualne podejście do klienta">
+            <img src="https://liz-bud.pl/wp-content/uploads/2022/03/pexels-yury-kim-585418-Copy.jpg" alt="Budowa domów">
         </div>
         <div class="about-text">
             <h3>Budowa domów jednorodzinnych</h3>
-            <p>kompleksowa budowa domów jednorodzinnych począwszy od ław, poprzez ściany, stropy, konstrukcje żelbetonowe, skończywszy na więźbie dachowej.</p>
+            <p>Kompleksowa budowa domów jednorodzinnych począwszy od ław, poprzez ściany, stropy, konstrukcje żelbetonowe, skończywszy na więźbie dachowej.</p>
         </div>
     </div>
 
@@ -345,11 +311,12 @@
 </div>
 
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close">&times;</span>
+    <span class="lightbox-close">×</span>
     <img class="lightbox-img" id="lightbox-img" src="" alt="Powiększone zdjęcie">
 </div>
 
 <script>
+    // BAZA DANYCH PROJEKTÓW (Kompletna lista)
     const projects = [
         {
             id: 1, title: "Teatr KTO w Krakowie", shortDesc: "Budowa teatru od podstaw",
@@ -470,61 +437,42 @@
         galleryContainer.appendChild(card);
     });
 
-    // --- ELEMENTY DOM ---
     const modal = document.getElementById('projectModal');
     const modalTitle = document.getElementById('modal-title');
     const modalDesc = document.getElementById('modal-desc');
     const modalImages = document.getElementById('modal-images');
     
-    // Elementy Lightboxa
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
 
-    // --- FUNKCJE MODALA PROJEKTU ---
     function openModal(project) {
         modalTitle.innerText = project.title;
         modalDesc.innerText = project.fullDesc;
         modalImages.innerHTML = '';
-        
         project.images.forEach(imgSrc => {
             const img = document.createElement('img');
             img.src = imgSrc;
-            // Dodajemy zdarzenie kliknięcia, które otwiera Lightbox
             img.onclick = () => openLightbox(imgSrc);
             modalImages.appendChild(img);
         });
-        
         modal.style.display = 'block';
     }
 
-    function closeModal() {
-        modal.style.display = 'none';
-    }
+    function closeModal() { modal.style.display = 'none'; }
 
-    // --- FUNKCJE LIGHTBOXA (POWIĘKSZANIE) ---
     function openLightbox(src) {
         lightboxImg.src = src;
-        lightbox.style.display = 'flex'; // Używamy flex, żeby wyśrodkować
+        lightbox.style.display = 'flex';
     }
-
     function closeLightbox() {
         lightbox.style.display = 'none';
-        lightboxImg.src = ''; // Czyścimy źródło
+        lightboxImg.src = '';
     }
 
-    // --- ZAMYKANIE KLIKNIĘCIEM W TŁO ---
     window.onclick = function(event) {
-        // Jeśli kliknięto w tło głównego modala
-        if (event.target == modal) {
-            closeModal();
-        }
-        // Jeśli kliknięto w tło lightboxa (zamyka tylko lightbox, modal pod spodem zostaje)
-        if (event.target == lightbox) {
-            closeLightbox();
-        }
+        if (event.target == modal) { closeModal(); }
+        if (event.target == lightbox) { closeLightbox(); }
     }
 </script>
 </body>
 </html>
-
-
