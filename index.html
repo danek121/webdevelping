@@ -53,7 +53,7 @@
         .section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; border-bottom: 2px solid var(--accent-red); display: inline-block; padding-bottom: 10px; width: 100%; max-width: 400px;}
 
-        /* --- SEKCJA O NAS (ZMODYFIKOWANA) --- */
+        /* --- SEKCJA O NAS (ZMODYFIKOWANA - ZAOKRĄGLENIA) --- */
         .about-intro {
             text-align: center;
             max-width: 900px;
@@ -64,11 +64,14 @@
 
         .about-row {
             display: flex;
-            /* align-items: center; <- USUNIĘTE, aby elementy się rozciągały */
-            gap: 0; /* USUNIĘTY odstęp, aby bloki się stykały */
+            gap: 0; 
             margin-bottom: 60px;
-            height: 350px; /* Ustawiona stała wysokość bloku */
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Cień dla całego rzędu */
+            height: 350px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            
+            /* NOWOŚĆ: Zaokrąglenie rogów całego bloku */
+            border-radius: 15px; 
+            overflow: hidden; /* To sprawia, że zdjęcie i tło nie wystają poza zaokrąglenie */
         }
 
         .about-row.reverse {
@@ -77,25 +80,24 @@
 
         .about-image {
             flex: 1;
-            height: 100%; /* Rozciągnij do pełnej wysokości rzędu */
+            height: 100%; 
         }
 
         .about-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Usunięte indywidualne obramowania i cienie */
         }
 
         .about-text {
             flex: 1;
-            background-color: #ffffff; /* NOWE: Białe tło */
-            color: #333; /* NOWE: Ciemny tekst dla czytelności */
+            background-color: #ffffff; 
+            color: #333; 
             padding: 40px;
-            height: 100%; /* Rozciągnij do pełnej wysokości rzędu */
+            height: 100%; 
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Wyśrodkowanie pionowe tekstu */
+            justify-content: center; 
         }
 
         .about-text h3 {
@@ -106,7 +108,7 @@
         }
         
         .about-text p {
-             color: #555; /* Lekko jaśniejszy czarny dla tekstu */
+             color: #555; 
         }
 
         /* --- GALERIA REALIZACJI --- */
@@ -160,10 +162,10 @@
             .contact-map { min-height: 350px; }
             header { flex-direction: column; gap: 15px; }
 
-            /* ZMIANA DLA TELEFONÓW */
             .about-row {
-                flex-direction: column !important; /* Zawsze kolumna na małym ekranie */
-                height: auto; /* Wysokość automatyczna */
+                flex-direction: column !important; 
+                height: auto; 
+                /* Na mobile też zostawiamy zaokrąglenia - będzie wyglądać jak ładna karta */
             }
             .about-row.reverse {
                  flex-direction: column !important;
