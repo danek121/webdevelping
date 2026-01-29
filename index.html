@@ -53,7 +53,7 @@
         .section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; border-bottom: 2px solid var(--accent-red); display: inline-block; padding-bottom: 10px; width: 100%; max-width: 400px;}
 
-        /* --- SEKCJA O NAS --- */
+        /* --- SEKCJA O NAS (ZMODYFIKOWANA) --- */
         .about-intro {
             text-align: center;
             max-width: 900px;
@@ -64,9 +64,11 @@
 
         .about-row {
             display: flex;
-            align-items: center;
-            gap: 50px;
+            /* align-items: center; <- USUNIĘTE, aby elementy się rozciągały */
+            gap: 0; /* USUNIĘTY odstęp, aby bloki się stykały */
             margin-bottom: 60px;
+            height: 350px; /* Ustawiona stała wysokość bloku */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Cień dla całego rzędu */
         }
 
         .about-row.reverse {
@@ -75,20 +77,25 @@
 
         .about-image {
             flex: 1;
-            height: 300px;
+            height: 100%; /* Rozciągnij do pełnej wysokości rzędu */
         }
 
         .about-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 5px;
-            border: 2px solid #444;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            /* Usunięte indywidualne obramowania i cienie */
         }
 
         .about-text {
             flex: 1;
+            background-color: #ffffff; /* NOWE: Białe tło */
+            color: #333; /* NOWE: Ciemny tekst dla czytelności */
+            padding: 40px;
+            height: 100%; /* Rozciągnij do pełnej wysokości rzędu */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Wyśrodkowanie pionowe tekstu */
         }
 
         .about-text h3 {
@@ -96,6 +103,10 @@
             font-size: 1.5rem;
             margin-bottom: 15px;
             text-transform: uppercase;
+        }
+        
+        .about-text p {
+             color: #555; /* Lekko jaśniejszy czarny dla tekstu */
         }
 
         /* --- GALERIA REALIZACJI --- */
@@ -149,12 +160,16 @@
             .contact-map { min-height: 350px; }
             header { flex-direction: column; gap: 15px; }
 
-            .about-row, .about-row.reverse {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
+            /* ZMIANA DLA TELEFONÓW */
+            .about-row {
+                flex-direction: column !important; /* Zawsze kolumna na małym ekranie */
+                height: auto; /* Wysokość automatyczna */
+            }
+            .about-row.reverse {
+                 flex-direction: column !important;
             }
             .about-image { height: 250px; width: 100%; }
+            .about-text { height: auto; padding: 30px; }
         }
     </style>
 </head>
@@ -190,7 +205,7 @@
 
     <div class="about-row">
         <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop" alt="Doświadczenie na budowie">
+            <img src="https://images.unsplash.com/photo-1590053853027-e769b0975a3f?q=80&w=800&auto=format&fit=crop" alt="Doświadczenie na budowie">
         </div>
         <div class="about-text">
             <h3>Wieloletnie Doświadczenie</h3>
@@ -200,7 +215,7 @@
 
     <div class="about-row reverse">
         <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c7c?q=80&w=600&auto=format&fit=crop" alt="Profesjonalny sprzęt">
+            <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=800&auto=format&fit=crop" alt="Profesjonalny sprzęt">
         </div>
         <div class="about-text">
             <h3>Nowoczesny Sprzęt</h3>
@@ -210,7 +225,7 @@
 
     <div class="about-row">
         <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=600&auto=format&fit=crop" alt="Indywidualne podejście do klienta">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop" alt="Indywidualne podejście do klienta">
         </div>
         <div class="about-text">
             <h3>Indywidualne Podejście</h3>
