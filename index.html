@@ -3,476 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIZ-BUD - Usługi Budowlane</title>
-    <style>
-        /* --- Zmienne kolorystyczne --- */
-        :root {
-            --primary-bg: #2F3A28; /* Ciemny zgniły zielony */
-            --secondary-bg: #1e261a; /* Ciemniejszy odcień */
-            --accent-red: #D20000; /* Czerwień z logo */
-            --text-color: #f4f4f4;
-            --overlay-color: rgba(0, 0, 0, 0.9);
-            --input-bg: #2a3324;
-        }
-
-        /* --- Reset i podstawowe style --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background-color: var(--primary-bg); color: var(--text-color); line-height: 1.6; }
-
-        /* --- Nagłówek --- */
-        header {
-            background-color: #000;
-            padding: 10px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid var(--accent-red);
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .logo img { height: 70px; width: auto; }
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav a { color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; transition: color 0.3s; cursor: pointer;}
-        nav a:hover { color: var(--accent-red); }
-
-        /* --- HERO BANNER (Z DUŻYM ZDJĘCIEM W TLE) --- */
-        .hero {
-            /* Zdjęcie tła z przyciemnieniem */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                              url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1920&auto=format&fit=crop');
-            
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Efekt Parallax */
-            
-            height: 75vh;
-            min-height: 500px;
-            
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            
-            padding: 20px;
-            border-bottom: 5px solid var(--accent-red);
-        }
-
-        .hero h1 { 
-            font-size: 3.5rem;
-            margin-bottom: 15px; 
-            text-transform: uppercase; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .hero p.subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            color: #f0f0f0;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-            max-width: 800px;
-        }
-
-        .btn { 
-            background-color: var(--accent-red); 
-            color: white; 
-            padding: 15px 40px;
-            text-decoration: none; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            font-size: 1.2rem;
-            transition: background 0.3s, transform 0.2s; 
-            display: inline-block; 
-            border: none; 
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .btn:hover { 
-            background-color: #a00000; 
-            transform: scale(1.05);
-        }
-
-        /* --- Sekcje ogólne --- */
-        .section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; border-bottom: 2px solid var(--accent-red); display: inline-block; padding-bottom: 10px; width: 100%; max-width: 400px;}
-
-        /* --- SEKCJA O NAS --- */
-        .about-intro { text-align: center; max-width: 900px; margin: 0 auto 60px auto; font-size: 1.1rem; color: #ccc; }
-        
-        .about-row { 
-            display: flex; gap: 0; margin-bottom: 60px; height: 350px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); border-radius: 15px; overflow: hidden; 
-        }
-        
-        .about-row.reverse { flex-direction: row-reverse; }
-        
-        .about-image { flex: 1; height: 100%; }
-        .about-image img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .about-text { 
-            flex: 1; background-color: #ffffff; color: #333; padding: 40px; height: 100%; 
-            display: flex; flex-direction: column; justify-content: center; 
-        }
-        .about-text h3 { color: var(--accent-red); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase; }
-        .about-text p { color: #555; }
-
-        /* --- GALERIA REALIZACJI --- */
-        .gallery-container { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: var(--accent-red) var(--secondary-bg); }
-        .gallery-container::-webkit-scrollbar { height: 10px; }
-        .gallery-container::-webkit-scrollbar-track { background: var(--secondary-bg); }
-        .gallery-container::-webkit-scrollbar-thumb { background-color: var(--accent-red); border-radius: 5px; }
-        
-        .project-card { min-width: 320px; background-color: var(--secondary-bg); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; border: 1px solid #444; }
-        .project-card:hover { transform: translateY(-5px); border-color: var(--accent-red); }
-        .project-img-thumb { width: 100%; height: 220px; object-fit: cover; background-color: #333; display: block; }
-        .project-info { padding: 15px; }
-        .project-info h3 { margin-bottom: 5px; color: #fff; }
-
-        /* --- KONTAKT --- */
-        .contact-section { background-color: #1a2016; padding-bottom: 80px; }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-        .contact-left { display: flex; flex-direction: column; gap: 30px; }
-        .contact-details { background-color: var(--secondary-bg); padding: 20px; border-left: 4px solid var(--accent-red); }
-        .contact-details h3 { margin-bottom: 15px; color: var(--accent-red); }
-        .contact-details p { margin-bottom: 8px; font-size: 1rem; }
-        .contact-form { background-color: var(--secondary-bg); padding: 30px; border-radius: 5px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; background-color: var(--input-bg); border: 1px solid #444; color: #fff; border-radius: 4px; font-family: inherit; }
-        .contact-map { width: 100%; height: 100%; min-height: 500px; border-radius: 5px; overflow: hidden; border: 2px solid #444; }
-        .contact-map iframe { width: 100%; height: 100%; border: 0; }
-
-        /* --- Footer --- */
-        footer { background-color: #000; text-align: center; padding: 20px; font-size: 0.8rem; color: #777; }
-
-        /* --- MODAL (SZCZEGÓŁY PROJEKTU) --- */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: var(--overlay-color); backdrop-filter: blur(3px); }
-        .modal-content { background-color: var(--secondary-bg); margin: 5% auto; padding: 30px; border: 1px solid var(--accent-red); width: 90%; max-width: 900px; border-radius: 8px; position: relative; }
-        .close-btn { color: #aaa; float: right; font-size: 30px; font-weight: bold; cursor: pointer; position: absolute; right: 20px; top: 10px; }
-        .close-btn:hover { color: var(--accent-red); }
-        
-        .modal-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px; }
-        .modal-gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: zoom-in; transition: opacity 0.2s; border: 1px solid #444;}
-        .modal-gallery-grid img:hover { opacity: 0.8; border-color: var(--accent-red); }
-        
-        #modal-title { color: var(--accent-red); margin-top: 0; }
-
-        /* --- LIGHTBOX (PEŁNY EKRAN) --- */
-        .lightbox { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; animation: fadeIn 0.3s; }
-        .lightbox-img { max-width: 90%; max-height: 90%; border: 2px solid #fff; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
-        .lightbox-close:hover { color: var(--accent-red); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- Responsywność --- */
-        @media (max-width: 900px) {
-            .contact-grid { grid-template-columns: 1fr; }
-            .contact-map { min-height: 350px; }
-            header { flex-direction: column; gap: 15px; }
-
-            .about-row, .about-row.reverse { flex-direction: column !important; height: auto; }
-            .about-image { height: 250px; width: 100%; }
-            .about-text { height: auto; padding: 30px; }
-            
-            /* Poprawki Hero na telefon */
-            .hero { height: auto; padding: 100px 20px; }
-            .hero h1 { font-size: 2rem; }
-        }
-    </style>
+    <title>RemontPro - Nowoczesne Usługi Remontowe</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<header>
-    <div class="logo">
-        <img src="https://liz-bud.pl/wp-content/uploads/2022/03/logo.png" alt="Logo LIZ-BUD">
-    </div>
-    <nav>
-        <ul>
-            <li><a href="#onas">O nas</a></li>
-            <li><a href="#realizacje">Realizacje</a></li>
-            <li><a href="#kontakt">Kontakt</a></li>
+    <nav class="navbar">
+        <div class="logo">Remont<span>Pro</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Start</a></li>
+            <li><a href="#services">Usługi</a></li>
+            <li><a href="#portfolio">Realizacje</a></li>
+            <li><a href="#contact">Kontakt</a></li>
         </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
-</header>
 
-<section class="hero">
-    <h1>Solidne Budownictwo <span style="color:var(--accent-red)">LIZ-BUD</span></h1>
-    <p class="subtitle">Liz-BUD W.Lizoń i Bracia spółka jawna</p>
-    <a href="#kontakt" class="btn">Darmowa Wycena</a>
-</section>
-
-<section id="onas" class="section">
-    <div style="text-align: center;">
-        <h2 class="section-title">O Firmie</h2>
-    </div>
-
-    <p class="about-intro">
-        Specjalizujemy się w dużych inwestycjach oraz klientach indywidualnych. Nasz zespół to doświadczeni fachowcy, dla których budownictwo to nie tylko praca, ale i pasja. Stawiamy na jakość, terminowość i partnerskie relacje z inwestorami.
-    </p>
-
-    <div class="about-row">
-        <div class="about-image">
-            <img src="https://liz-bud.pl/wp-content/uploads/2019/11/repair3-home-project.jpg" alt="Budowa osiedli">
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Twój dom, nasza pasja</h1>
+            <p>Profesjonalne remonty, wykończenia wnętrz i metamorfozy mieszkań.</p>
+            <a href="#contact" class="btn-primary">Darmowa wycena</a>
         </div>
-        <div class="about-text">
-            <h3>Budowa osiedli mieszkaniowych</h3>
-            <p>Dzięki posiadaniu odpowiedniego zaplecza sprzętowego a także wykwalifikowanej załogi, jesteśmy w stanie sprostać nawet najbardziej wymagającym wymaganiom inwestorów czy deweloperów.</p>
-        </div>
-    </div>
+    </header>
 
-    <div class="about-row reverse">
-        <div class="about-image">
-            <img src="https://liz-bud.pl/wp-content/uploads/2022/03/pexels-life-of-pix-2489-Copy.jpg" alt="Roboty ziemne">
+    <section class="features">
+        <div class="feature-box fade-in">
+            <i class="fas fa-tools"></i>
+            <h3>Doświadczenie</h3>
+            <p>Ponad 10 lat w branży budowlanej.</p>
         </div>
-        <div class="about-text">
-            <h3>Roboty ziemne</h3>
-            <p>Posiadając rozbudowane zaplecze sprzętowe oferujemy wykonanie robót ziemnych związanych z kopaniem ław, przekopów, wywozu ziemi, podłączeń kanalizacyjnych.</p>
+        <div class="feature-box fade-in">
+            <i class="fas fa-clock"></i>
+            <h3>Terminowość</h3>
+            <p>Szanujemy Twój czas i dotrzymujemy umów.</p>
         </div>
-    </div>
-
-    <div class="about-row">
-        <div class="about-image">
-            <img src="https://liz-bud.pl/wp-content/uploads/2022/03/pexels-yury-kim-585418-Copy.jpg" alt="Budowa domów">
+        <div class="feature-box fade-in">
+            <i class="fas fa-star"></i>
+            <h3>Jakość</h3>
+            <p>Używamy tylko sprawdzonych materiałów.</p>
         </div>
-        <div class="about-text">
-            <h3>Budowa domów jednorodzinnych</h3>
-            <p>Kompleksowa budowa domów jednorodzinnych począwszy od ław, poprzez ściany, stropy, konstrukcje żelbetonowe, skończywszy na więźbie dachowej.</p>
+    </section>
+
+    <section id="services" class="services">
+        <h2 class="section-title">Nasze Usługi</h2>
+        <div class="services-container">
+            <div class="service-card fade-in">
+                <h3>Malowanie i Tapetowanie</h3>
+                <p>Precyzyjne malowanie ścian, sufitów oraz kładzenie tapet.</p>
+            </div>
+            <div class="service-card fade-in">
+                <h3>Łazienki pod klucz</h3>
+                <p>Kompleksowe remonty łazienek, kafelkowanie i hydraulika.</p>
+            </div>
+            <div class="service-card fade-in">
+                <h3>Gładzie i Zabudowy GK</h3>
+                <p>Idealnie gładkie ściany, sufity podwieszane i ścianki działowe.</p>
+            </div>
+            <div class="service-card fade-in">
+                <h3>Podłogi i Panele</h3>
+                <p>Układanie paneli, parkietów oraz listew wykończeniowych.</p>
+            </div>
         </div>
-    </div>
+    </section>
 
-</section>
+    <section id="portfolio" class="portfolio">
+        <h2 class="section-title">Ostatnie Realizacje</h2>
+        <div class="gallery">
+            <div class="img-box fade-in"><img src="https://images.unsplash.com/photo-1581094794329-cd56b5095bb4?auto=format&fit=crop&w=600&q=80" alt="Remont 1"></div>
+            <div class="img-box fade-in"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80" alt="Remont 2"></div>
+            <div class="img-box fade-in"><img src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?auto=format&fit=crop&w=600&q=80" alt="Remont 3"></div>
+            <div class="img-box fade-in"><img src="https://images.unsplash.com/photo-1484154218962-a1c00207099b?auto=format&fit=crop&w=600&q=80" alt="Remont 4"></div>
+        </div>
+    </section>
 
-<section id="realizacje" class="section">
-    <div style="text-align: center;">
-        <h2 class="section-title">Nasze Realizacje</h2>
-        <p style="margin-bottom: 20px; color: #aaa;">Przesuń w prawo, aby zobaczyć więcej →</p>
-    </div>
-    <div class="gallery-container" id="gallery-container">
-    </div>
-</section>
-
-<section id="kontakt" class="section contact-section">
-    <h2 class="section-title">Skontaktuj się z nami</h2>
-    <div class="contact-grid">
-        <div class="contact-left">
-            <div class="contact-details">
+    <section id="contact" class="contact">
+        <h2 class="section-title">Skontaktuj się z nami</h2>
+        <div class="contact-container">
+            <div class="contact-info fade-in">
                 <h3>Dane kontaktowe</h3>
-                <p><strong>Liz-BUD W.Lizoń i Bracia spółka jawna</strong></p>
-                <p>Zabrzeż 239, 33-390 Łącko</p>
-                <br>
-                <p>📞 <strong>+48 694 205 315</strong></p>
-                <p>📞 <strong>+48 666 873 067</strong></p>
-                <p>✉️ <a href="mailto:lizbud55@gmail.com" style="color: var(--accent-red); text-decoration: none;">lizbud55@gmail.com</a></p>
+                <p>Masz pytania? Zadzwoń lub napisz.</p>
+                <p><strong>Telefon:</strong> +48 123 456 789</p>
+                <p><strong>Email:</strong> kontakt@FirmaBudowlana.pl</p>
+                <p><strong>Adres:</strong> ul. Budowlana 10, Warszawa</p>
             </div>
-            <div class="contact-form">
-                <h3 style="margin-bottom: 20px; color: #fff;">Napisz do nas</h3>
-                <form action="contact.php" method="POST">
-                    <div class="form-group">
-                        <label for="name">Imię i nazwisko</label>
-                        <input type="text" id="name" name="imie" placeholder="Twoje imię" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Adres e-mail</label>
-                        <input type="email" id="email" name="email" placeholder="twoj@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Wiadomość</label>
-                        <textarea id="message" name="wiadomosc" rows="5" placeholder="W czym możemy pomóc?" required></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Wyślij Wiadomość</button>
-                </form>
-            </div>
+            <form class="contact-form fade-in" id="contactForm">
+                <input type="text" placeholder="Imię i Nazwisko" required>
+                <input type="email" placeholder="Twój Email" required>
+                <textarea rows="5" placeholder="Wiadomość" required></textarea>
+                <button type="submit" class="btn-primary">Wyślij wiadomość</button>
+            </form>
         </div>
-        <div class="contact-map">
-            <iframe
-                    width="100%"
-                    height="100%"
-                    frameborder="0"
-                    scrolling="no"
-                    marginheight="0"
-                    marginwidth="0"
-                    src="https://maps.google.com/maps?q=Liz-BUD+Zabrzeż+239+Łącko&t=&z=15&ie=UTF8&iwloc=&output=embed">
-            </iframe>
-        </div>
-    </div>
-</section>
+    </section>
 
-<footer>
-    <p>© 2026 Liz-BUD W.Lizoń i Bracia spółka jawna. Wszelkie prawa zastrzeżone.</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 FirmaBudowlana. Wszelkie prawa zastrzeżone.</p>
+    </footer>
 
-<div id="projectModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">×</span>
-        <h2 id="modal-title">Tytuł</h2>
-        <div id="modal-body">
-            <p id="modal-desc" style="color:#ddd; margin: 15px 0;">Opis</p>
-            <div class="modal-gallery-grid" id="modal-images"></div>
-        </div>
-    </div>
-</div>
-
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close">×</span>
-    <img class="lightbox-img" id="lightbox-img" src="" alt="Powiększone zdjęcie">
-</div>
-
-<script>
-    // BAZA DANYCH PROJEKTÓW (Kompletna lista)
-    const projects = [
-        {
-            id: 1, title: "Teatr KTO w Krakowie", shortDesc: "Budowa teatru od podstaw",
-            fullDesc: "Kompleksowa budowa teatru KTO w Krakowie.",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/teatrkto_krakow.jpg",
-            images: [
-                "https://liz-bud.pl/wp-content/uploads/2022/03/20201127_143455-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/20201221_124040-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/20201027_154911-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/20201127_142918-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/20201023_150159-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/20201020_081415-Copy.jpg"
-            ]
-        },
-        {
-            id: 2, title: "Osiedle mieszkaniowe – Modlnica", shortDesc: "Budowa osiedla od podstaw",
-            fullDesc: "Budowa zespołu domów jednorodzinnych.",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/widok_4_5-1-Copy-1.jpg",
-            images: [
-                "https://liz-bud.pl/wp-content/uploads/2022/03/modlnica01.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/modlnica02.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/modlnica03.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/modlnica04.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/modlnica05.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/modlnica06.jpg"
-            ]
-        },
-        {
-            id: 3, title: "Osiedle mieszkaniowe - Kraków ul. Złota", shortDesc: "Budowa osiedla mieszkaniowego od podstaw",
-            fullDesc: "Wybudowa kompleksowego osiedla mieszkaniowego w Krakowie.",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2019/11/zlota2-Copy.jpg",
-            images: [
-                "https://liz-bud.pl/wp-content/uploads/2019/11/zlota10-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2019/11/zlota9-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2019/11/zlota8-Copy.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2019/11/zlota5-Copy.jpg"
-            ]
-        },
-        {
-            id: 4, title: "Dom jednorodzinne", shortDesc: "Kompleksowa budowa domów",
-            fullDesc: "Budowa nowoczesnego domu z widokiem na góry.",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/zielonki05.jpg", 
-            images: [
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/zabierzow01.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/zabierzow02.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/brzezna04.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/zielonki01.jpg"
-            ]
-        },
-           {
-            id: 5, title: "Elewacja budynków", shortDesc: "Położenie elewacji na osiedlu mieszkalnym",
-            fullDesc: "Położenie elewacji na osiedlu mieszkalnym w Krakowie",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/skowronia05.jpg", 
-            images: [
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/skowronia03.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/skowronia04.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/skowronia02.jpg",
-                "https://liz-bud.pl/wp-content/uploads/2022/03/skowronia01.jpg"
-            ]
-        },
-         {
-            id: 6, title: "Elewacja Hotelu", shortDesc: "Położenie elewacji na Hotel Perła Południa",
-            fullDesc: "Położenie elewacji na Hotel Perła Południa w Rytrze",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/ele01.jpg", 
-            images: [
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/ele02.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/ele04.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/ele03.jpg"
-            ]
-        },
-          {
-            id: 7, title: "Budowa Stacji Paliw", shortDesc: "Budowa Stacji Paliw Moya",
-            fullDesc: "Budowa Stacji Paliw Moya w Piwnicznej Zdrój",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/1a265172dc.jpg", 
-            images: [
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/piwniczna02.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/piwniczna01.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/1a265172dc.jpg"
-            ]
-        },
-          {
-            id: 8, title: "Kostki Brukowe", shortDesc: "Doswiadczenie w układaniu kostek brukowych",
-            fullDesc: "Doswiadczenie w układaniu kostek brukowych na różnych terenach",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/kostka01.jpg", 
-            images: [
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kostka08.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kostka03.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kostka09.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kostka12.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kostka05.jpg"
-            ]
-        },
-         {
-            id: 9, title: "Pensjonat", shortDesc: "Kompleksowa budowa pensjonatu",
-            fullDesc: "Kompleksowa budowa pensjonatu - Krościenko nad Dunajcem",
-            thumb: "https://liz-bud.pl/wp-content/uploads/2022/03/kroscienko01.jpg", 
-            images: [
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kroscienko02.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kroscienko04.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kroscienko03.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kroscienko06.jpg",
-                    "https://liz-bud.pl/wp-content/uploads/2022/03/kroscienko05.jpg"
-            ]
-        },
-    ];
-
-    const galleryContainer = document.getElementById('gallery-container');
-    projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.onclick = () => openModal(project);
-        card.innerHTML = `
-            <img src="${project.thumb}" alt="${project.title}" class="project-img-thumb">
-            <div class="project-info">
-                <h3>${project.title}</h3>
-                <span style="color:#aaa; font-size:0.8rem; text-transform:uppercase;">${project.shortDesc}</span>
-            </div>`;
-        galleryContainer.appendChild(card);
-    });
-
-    const modal = document.getElementById('projectModal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modal-desc');
-    const modalImages = document.getElementById('modal-images');
-    
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
-    function openModal(project) {
-        modalTitle.innerText = project.title;
-        modalDesc.innerText = project.fullDesc;
-        modalImages.innerHTML = '';
-        project.images.forEach(imgSrc => {
-            const img = document.createElement('img');
-            img.src = imgSrc;
-            img.onclick = () => openLightbox(imgSrc);
-            modalImages.appendChild(img);
-        });
-        modal.style.display = 'block';
-    }
-
-    function closeModal() { modal.style.display = 'none'; }
-
-    function openLightbox(src) {
-        lightboxImg.src = src;
-        lightbox.style.display = 'flex';
-    }
-    function closeLightbox() {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) { closeModal(); }
-        if (event.target == lightbox) { closeLightbox(); }
-    }
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
